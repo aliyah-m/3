@@ -1,0 +1,180 @@
+<?php
+//Aliyah Mohammed
+//IS-218-002
+//Homework-3
+
+
+
+
+$date =  date('Y-m-d', time());
+echo "The value of \$date: ".$date."<br>";
+$tar = "2017/05/24";
+echo "The value of \$tar: ".$tar."<br>";
+$year = array("2012", "396", "300","2000", "1100", "1089");
+echo "The value of \$year: ";
+print_r($year);
+echo "<br>";
+
+
+echo "<br> Section-1: <br> part-1:";
+$date =  date('Y/m/d', time());
+echo "The value of \$date: ".$date."<br>";
+
+echo "part-2:";
+if($date>$tar){
+    echo "The Future"."<br>";
+}
+elseif ($date<$tar){
+    echo "The Past"."<br>";
+}
+else {
+    echo "Oops"."<br>";
+}
+
+echo "part-3:";
+$date =  date('Y/m/d', time());
+echo strpos($date,"/");
+$date1=str_replace("/"," ",$date);
+echo $date1;
+echo "<br>";
+
+echo "part-4:";
+echo count($year)."<br>";
+
+echo "part-5:";
+$str1="hello IS218";
+echo "The ASCII value of h is : " .ord($str1)."<br>";
+#here I am using the built-in ord function which returns the ASCII value of the first character of any given string
+
+echo "part-6:";
+$str2="this is homework for php basics";
+echo "This is homework for php basics string has a length of : ".strlen($str2)."<br>";
+
+echo "part-7:";
+echo "The last two characters of today's date is : ".substr($date,-2)."<br>";
+
+echo "part-8:";
+$dateArray =array();
+for($i=0;$i<strlen($date);$i++){
+    $charValue=$date[$i];
+    $dateArray[] = $charValue;
+
+}
+print_r($dateArray);
+
+echo "<br><br> Section-2:"."<br>";
+
+//create the array.MAI
+$employee=array(
+    array(
+        'employeename'=>'John Doe',
+        'phone'=>'123-345-6789',
+        'email'=>'jd@gmail.com',
+        'address'=>'123 NJIT, Newark, NJ',
+        'salary'=>'100'
+
+    ),
+    array(
+        'employeename'=>'Collin L',
+        'phone'=>'245-333-4456',
+        'email'=>'cl@gmail.com',
+        'address'=>'23 Rock Ave, Newark, DE',
+        'salary'=>'112'
+
+    ),
+    array(
+        'employeename'=>'John L',
+        'phone'=>'222-000-1111',
+        'email'=>'jl@gmail.com',
+        'address'=>'234 lookGood Ave, CA',
+        'salary'=>'200'
+
+    ),
+    array(
+        'employeename'=>'IS C218',
+        'phone'=>'112-123-2345',
+        'email'=>'ic@hotmail.com',
+        'address'=>'25 link RD,LA, CA',
+        'salary'=>'234'
+
+    )
+
+);
+
+
+
+
+
+echo "part-1: ";
+//By given the first name “John”, can you calculate the average salary (units:
+//k) for all employees with this first name?
+$tsalary=0;
+$count=0;
+$match='John';
+// write the function for part 1 and call it firstname.MAI
+function firstname(){
+    for ($x=0;$x<4;$x++){
+        global $employee,$match,$tsalary,$count;
+        $name=$employee[$x]['employeename'];
+        $position=explode(' ',$name);
+        if ($position[0]==$match){
+            $salary = $employee[$x]['salary']."<br>";
+            $int_salary=intval($salary);
+            $tsalary += $int_salary;
+            $count++;
+        }
+
+    }
+    echo "Average salary for the person with first name John is: ".$tsalary/$count."k.<br>";
+}
+//call the function.MAI
+firstname();
+
+//By given the last name “L”, can you save the phones of all employees with
+//this last name into another array and print them out?
+echo "part-2: ";
+$phonearray=array();
+
+for ($x=0;$x<4;$x++){
+    $name=$employee[$x]['employeename'];
+    $position=strpos($name,'L');
+    if ($position>0){
+        $emp_phone=$employee[$x]['phone'];
+        $phonearray[] = $emp_phone;
+    }
+}
+print_r($phonearray);
+
+//What is the average salary (units: k) for all employees who reside in CA?
+$countCA=0;
+$total_salaryCA=0;
+for ($x=0;$x<4;$x++){
+    $address=$employee[$x]['address'];
+    $word='CA';
+    if (strpos($address,$word)!==false){
+        $salaryCA=intval($employee[$x]['salary']);
+        $countCA++;
+        $total_salaryCA+=$salaryCA;
+    }
+
+}
+$avg_salaryCA=$total_salaryCA/$countCA;
+echo "<br>Part-3:Average salary for people who reside in California is: ".$avg_salaryCA."k.<br>";
+
+
+
+//Can you print out the employees’ full names who have a salary>200k?
+function fullname(){
+    global $employee;
+    for ($x=0;$x<4;$x++){
+        $salary=intval($employee[$x]['salary']);
+
+        if ($salary>200){
+            echo "Part-4:".$employee[$x]['employeename'];
+        }
+
+    }
+}
+fullname();
+
+?>
